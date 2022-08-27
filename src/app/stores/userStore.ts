@@ -57,6 +57,7 @@ export default class UserStore {
   };
 
   @action getUserSubmissions = async (page: number) => {
+    console.log(page);
     this.loadingInitial = true;
     try {
       const submissions = await agent.Users.getSubmissions(
@@ -64,6 +65,7 @@ export default class UserStore {
         this.submissionsPageSize
       );
       runInAction(() => {
+        console.log(submissions);
         this.submissions = submissions;
         this.loadingInitial = false;
       });

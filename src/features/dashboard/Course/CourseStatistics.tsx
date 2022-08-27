@@ -68,6 +68,7 @@ const CourseStatistics: React.FC = () => {
             label={({ dataIndex }) => labels[dataIndex]}
             data={data}
           />
+          <br style={{clear:"left"}}></br>
         </Fragment>
       );
     }

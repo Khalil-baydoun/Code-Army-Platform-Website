@@ -25,7 +25,6 @@ import SolutionUploadForm from "../forms/SolutionUploadForm";
 import SubmitForm from "../forms/SubmitForm";
 import TestUploadForm from "../forms/TestUploadForm";
 import SolutionView from "./SolutionView";
-
 interface DetailParams {
   problemId: string;
   problemSetId: string;
@@ -176,22 +175,22 @@ const ProblemDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                 </Table>
               </GridColumn>
             </GridRow>
-            <GridRow>
-              <Segment style={{ width: "100%" }}>
-                {problem.Hints.map((hint: String, index) => (
-                  <Reveal animated="move" instant style={{ width: "100%" }}>
+            {problem.Hints.map((hint: String, index) => (
+              <GridRow className="problemRow">
+                <GridColumn>
+                  <Reveal key={index} animated="move" instant style={{ width: "100%" }}>
                     <Reveal.Content visible style={{ width: "100%" }}>
                       <Segment style={{ width: "100%" }}>
-                        <h3>Hint{index}</h3>
+                        <h3>Show Hint {index+1}</h3>
                       </Segment>
                     </Reveal.Content>
                     <Reveal.Content hidden>
-                      <Segment>{hint}</Segment>
+                      <Segment><p>{hint}</p></Segment>
                     </Reveal.Content>
                   </Reveal>
-                ))}
-              </Segment>
-            </GridRow>
+                </GridColumn>
+              </GridRow>
+            ))}
           </Grid>
         </Tab.Pane>
       ),

@@ -13,6 +13,7 @@ import TextAreaInput from "../../app/common/form/TextAreaInput";
 import { progLangs } from "../../app/common/options/selectOptions";
 import { RootStoreContext } from "../../app/stores/rootStore";
 
+
 const validate = combineValidators({
   ProgLanguage: isRequired({ message: "The programming language is required" }),
   SourceCode: composeValidators(
@@ -26,6 +27,9 @@ const validate = combineValidators({
 const SubmitForm = () => {
   const rootStore = useContext(RootStoreContext);
   const { Submit, problem } = rootStore.problemStore;
+    const [code, setCode] = React.useState(
+    `function add(a, b) {\n  return a + b;\n}`
+  );
 
   const handleFinalFormSubmit = (values: any) => {
     const { ...request } = values;
@@ -60,7 +64,6 @@ const SubmitForm = () => {
                   rows="20"
                   component={TextAreaInput}
                 ></Field>
-
                 {/* <Container textAlign="center"> */}
                 <Button
                   disabled={invalid || pristine}

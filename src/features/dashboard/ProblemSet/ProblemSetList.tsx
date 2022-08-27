@@ -113,7 +113,7 @@ const ProblemSetList: React.FC<RouteComponentProps<DetailParams>> = ({
           Array.from(problemSetRegistry.values())
             .filter((ps) => ps.CourseId == course.Id)
             .map((summary: IProblemSetSummary) => (
-              <ProblemSetListItem summary={summary} />
+              <ProblemSetListItem key={summary.Id} summary={summary} />
             ))}
       </Card.Group>
     </Fragment>

@@ -73,7 +73,7 @@ const LoginForm = () => {
                 )}
                 <Button
                   disabled={(invalid && !dirtySinceLastSubmit) || pristine}
-                  color="black"
+                  color="teal"
                   fluid
                   size="large"
                   content="login"

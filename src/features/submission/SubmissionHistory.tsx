@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
@@ -94,9 +94,10 @@ const SubmissionHistory: React.FC<RouteComponentProps<DetailParams>> = ({
                     {verdictToString(summary.Verdict)}
                   </Table.Cell>
                   <Table.Cell width="4">
+                    {console.log(summary.SubmittedAt, format(new Date(summary.SubmittedAt), "yyyy-mm-dd"))}
                     <p>
-                      {format(summary.SubmittedAt!, "eeee do MMMM")} at{" "}
-                      {format(summary.SubmittedAt!, "h:mm a")}
+                      {format(new Date(summary.SubmittedAt), "yyyy-MM-dd")}{", "} at{" "}
+                      {format(new Date(summary.SubmittedAt), "h:mm a")}
                     </p>
                   </Table.Cell>
                   <Table.Cell width="4">

@@ -17,6 +17,7 @@ import CreateCourseForm from "../../features/forms/CreateCourseForm";
 import CreateProblemForm from "../../features/forms/CreateProblemForm";
 import CreateProblemSetForm from "../../features/forms/CreateProblemSetForm";
 import SubmitForm from "../../features/forms/SubmitForm";
+import Footer from "../../features/Home/Footer";
 import HomePage from "../../features/Home/HomePage";
 import NavBar from "../../features/nav/NavBar";
 import VerdictsGuide from "../../features/nav/VerdictsGuide";
@@ -49,13 +50,16 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
     <Fragment>
       <ToastContainer position="bottom-right" />
       <ModalContainer />
-      <Route exact path="/" component={HomePage} />
+      <Route
+        exact
+        path="/"
+        component={HomePage} />
       <Route
         path={"/(.+)"}
         render={() => (
           <Fragment>
             <NavBar />
-            <Container style={{ marginTop: "7em" }}>
+            <Container className="flex-wrapper" style={{ marginTop: "7em" }}>
               <Switch>
                 <PrivateRoute
                   exact
@@ -130,6 +134,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                 <Route component={NotFound} />
               </Switch>
             </Container>
+            <Footer />
           </Fragment>
         )}
       />

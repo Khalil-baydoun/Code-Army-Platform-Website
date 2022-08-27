@@ -1,12 +1,16 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Container, Dropdown, Menu } from "semantic-ui-react";
+import React, { Fragment, useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { NavItem } from "reactstrap";
+import { Container, Dropdown, Menu, Segment } from "semantic-ui-react";
 import { RootStoreContext } from "../../app/stores/rootStore";
+import LoginForm from "../forms/LoginForm";
+import SignUpForm from "../forms/SignUpForm";
 
 const NavBar = () => {
   const rootStore = useContext(RootStoreContext);
   const { user, logout } = rootStore.userStore;
+  const { openModal } = rootStore.modalStore;
 
   const SettingsDropdown = () => (
     <Dropdown
@@ -14,16 +18,23 @@ const NavBar = () => {
       trigger={<span>{user?.FirstName}</span>}
     >
       <Dropdown.Menu>
+      <Dropdown.Item
+          color="#ffd62f"
+          icon="student"
+          text="My Courses"
+          as={Link}
+          to="/course"
+        />
         <Dropdown.Item
           color="#ffd62f"
           icon="pie chart"
-          text="Your Statistics"
+          text="My Statistics"
           as={Link}
           to="/statistics"
         />
         <Dropdown.Item
           color="#ffd62f"
-          text="Your Submissions"
+          text="My Submissions"
           icon="code"
           as={Link}
           to="/submissions/page/1"
@@ -38,6 +49,20 @@ const NavBar = () => {
         <Dropdown.Item onClick={logout} text="Logout" icon="power" />
       </Dropdown.Menu>
     </Dropdown>
+  );
+  const LoginOptions = () => (
+    <Fragment>
+    <Menu.Item onClick={()=> openModal(<LoginForm />)}>
+    <span className ="LoginOptions" >
+      Login
+    </span>
+    </Menu.Item>
+    <Menu.Item onClick={()=> openModal(<SignUpForm />)}>
+    <span  className ="LoginOptions" >
+      SignUp
+    </span>
+    </Menu.Item>
+    </Fragment>
   );
 
   return (
@@ -57,12 +82,13 @@ const NavBar = () => {
               fontSize: "120%",
             }}
           >
-            AUB CODING PLATFORM
+            Code Army
           </span>
         </Menu.Item>
 
         <Menu.Menu position="right">
-          <Menu.Item>{user && <SettingsDropdown />}</Menu.Item>
+        {!user && <LoginOptions/>}
+        <Menu.Item>{user && <SettingsDropdown />}</Menu.Item>
         </Menu.Menu>
       </Container>
     </Menu>
