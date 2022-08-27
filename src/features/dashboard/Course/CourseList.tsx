@@ -24,7 +24,6 @@ const CourseList: React.FC = () => {
         content={"My Courses"}
         style={{ marginBottom: "0", color: "#2f4858" }}
       />
-      {/* <h2 style={{ marginBottom: "0" }}>My Courses</h2> */}
       {hasRole("Instructor") && (
         <Header
           as="h4"

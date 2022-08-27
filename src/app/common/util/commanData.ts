@@ -48,6 +48,16 @@ export const verdicts: {[index:number]:Verdict } = {
   }
 };
 
+export const progLanguageToSyntaxHighlighterLanguage: {[index:string]:string } = {
+  "cpp": "cpp",
+  "python3" :"python",
+  "python2" :"python",
+  "c": "cpp",
+  "java": "java"
+};
+
+
+
 export function difficultyToString(difficulty: any) {
   let difficulties = ["EASY", "MEDIUM", "HARD"];
   return difficulties[difficulty];

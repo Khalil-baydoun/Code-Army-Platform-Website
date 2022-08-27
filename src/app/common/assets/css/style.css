@@ -259,6 +259,7 @@ i.red.icon {
   cursor: pointer;
 }
 
-pre{
-  all: revert;
+.subRep {
+  font-size: small  ;
+  line-height:30% 
 }

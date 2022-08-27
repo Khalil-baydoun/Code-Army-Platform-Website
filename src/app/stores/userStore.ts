@@ -7,7 +7,7 @@ import { RootStore } from "./rootStore";
 
 export default class UserStore {
   rootStore: RootStore;
-  submissionsPageSize: number = 20;
+  submissionsPageSize: number = 10;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -57,7 +57,6 @@ export default class UserStore {
   };
 
   @action getUserSubmissions = async (page: number) => {
-    console.log(page);
     this.loadingInitial = true;
     try {
       const submissions = await agent.Users.getSubmissions(
@@ -65,7 +64,6 @@ export default class UserStore {
         this.submissionsPageSize
       );
       runInAction(() => {
-        console.log(submissions);
         this.submissions = submissions;
         this.loadingInitial = false;
       });
@@ -73,7 +71,6 @@ export default class UserStore {
       runInAction(() => {
         this.loadingInitial = false;
       });
-      console.log(error);
       throw error;
     }
   };
@@ -90,7 +87,6 @@ export default class UserStore {
       runInAction(() => {
         this.loadingInitial = false;
       });
-      console.log(error);
       throw error;
     }
   };

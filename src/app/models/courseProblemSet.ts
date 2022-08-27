@@ -36,6 +36,13 @@ export interface ISubmission {
   SourceCode: string;
   SubmittedAt: Date;
   ProgrammingLanguage: number;
+  TestsPassed: number,
+  TotalTests: number,
+  ActualOutput: string,
+  ExpectedOutput: string,
+  WrongTestInput: string,
+  RuntimeErrorMessage: string,
+  CompilerErrorMessage: string
 }
 
 export interface IUserStatistics {

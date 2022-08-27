@@ -57,14 +57,6 @@ const CourseManagementDashboard: React.FC<
         </Tab.Pane>
       ),
     },
-    // {
-    //   menuItem: {
-    //     key: "grades",
-    //     content: "Grades",
-    //     icon: "newspaper",
-    //   },
-    //   render: () => <Tab.Pane></Tab.Pane>,
-    // },
     {
       menuItem: {
         key: "user",

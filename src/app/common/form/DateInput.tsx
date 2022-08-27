@@ -14,23 +14,16 @@ const DateInput: React.FC<IProps> = ({
   input,
   width,
   meta: { touched, error },
-  //...rest
 }) => {
   return (
     <Form.Field error={touched && !!error} width={width}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDateTimePicker
-          // placeholder={placeholder}
-          // value={input.value || null}
-          // onChange={input.onChange}
-          // onKeyDown={(e) => e.preventDefault()}
-          // //{...rest}
           variant="inline"
           ampm={false}
           label="With keyboard"
           value={input.value || null}
           onChange={input.onChange}
-          onError={console.log}
           format="yyyy/MM/dd HH:mm"
         />
       </MuiPickersUtilsProvider>

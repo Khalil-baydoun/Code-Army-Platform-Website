@@ -81,9 +81,9 @@ const SubmissionHistory: React.FC<RouteComponentProps<DetailParams>> = ({
           <Table.Body>
             {submissions?.Submissions.map(
               (summary: ISubmission, index: number) => (
-                <Table.Row key={index}>
+                <Table.Row style={{cursor: "pointer"}} key={index} onClick={() => setActiveCode(index)}>
                   <Table.Cell width="1" style={{ cursor: "pointer" }}>
-                    <div onClick={() => setActiveCode(index)}>
+                    <div >
                       <p> {summary.Id}</p>
                     </div>
                   </Table.Cell>
@@ -94,7 +94,6 @@ const SubmissionHistory: React.FC<RouteComponentProps<DetailParams>> = ({
                     {verdictToString(summary.Verdict)}
                   </Table.Cell>
                   <Table.Cell width="4">
-                    {console.log(summary.SubmittedAt, format(new Date(summary.SubmittedAt), "yyyy-mm-dd"))}
                     <p>
                       {format(new Date(summary.SubmittedAt), "yyyy-MM-dd")}{", "} at{" "}
                       {format(new Date(summary.SubmittedAt), "h:mm a")}
@@ -145,15 +144,11 @@ const SubmissionHistory: React.FC<RouteComponentProps<DetailParams>> = ({
           </Table.Footer>
         </Table>
       </Fragment>
-
-      {activeCode != -1 && (
+      {activeCode != -1 && submissions?.Submissions[activeCode]!=null && (
         <Modal open={true} onClose={() => setActiveCode(-1)} size="large">
           <Modal.Content>
             <SubmissonReport
-              submissionId={String(submissions?.Submissions[activeCode].Id)}
-              sourceCode={String(
-                submissions?.Submissions[activeCode].SourceCode
-              )}
+              submission={submissions?.Submissions[activeCode]}
             />
           </Modal.Content>
         </Modal>

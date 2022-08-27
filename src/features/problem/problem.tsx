@@ -181,7 +181,10 @@ const ProblemDetails: React.FC<RouteComponentProps<DetailParams>> = ({
                   <Reveal key={index} animated="move" instant style={{ width: "100%" }}>
                     <Reveal.Content visible style={{ width: "100%" }}>
                       <Segment style={{ width: "100%" }}>
-                        <h3>Show Hint {index+1}</h3>
+
+                        <h3>
+                      <Icon name="lightbulb outline"></Icon>
+                          Show Hint {index+1}</h3>
                       </Segment>
                     </Reveal.Content>
                     <Reveal.Content hidden>
@@ -199,7 +202,7 @@ const ProblemDetails: React.FC<RouteComponentProps<DetailParams>> = ({
       menuItem: {
         key: "solutionView",
         content: "Problem Solution",
-        icon: "lightbulb",
+        icon: "file",
       },
       render: () => (
         <Tab.Pane>

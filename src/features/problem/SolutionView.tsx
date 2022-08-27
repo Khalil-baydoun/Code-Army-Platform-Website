@@ -24,8 +24,6 @@ const SolutionView = () => {
   const monacoRef = useRef(null);
 
   const handleProgLangChange = (val: any) => {
-    console.log(val);
-    // changeProgLang(parseInt(val));
   };
 
   function handleEditorWillMount(monaco: any) {

@@ -100,7 +100,6 @@ export default class ProblemStore {
       runInAction("create problem error", () => {
         this.submitting = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
@@ -116,7 +115,6 @@ export default class ProblemStore {
       runInAction("uploading tests error", () => {
         this.submitting = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
@@ -132,7 +130,6 @@ export default class ProblemStore {
       runInAction("uploading problem solution", () => {
         this.submitting = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
@@ -151,8 +148,7 @@ export default class ProblemStore {
         this.submitting = false;
         this.solution = null;
       });
-      console.log(error);
-      // toast.error("Problem loading solution");
+       toast.error("Problem loading solution");
     }
   };
 
@@ -169,29 +165,23 @@ export default class ProblemStore {
       runInAction("edit problem error", () => {
         this.submitting = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
 
   @action LoadReport = async (submissionId: string) => {
     let report: ISubmissionReport | null = null;
-    {
-      console.log("subid", submissionId);
-    }
     this.loadingInitial = true;
     try {
       report = await agent.Problems.loadReport(submissionId);
       runInAction("loading report....", () => {
         this.report = report;
         this.loadingInitial = false;
-        console.log("report", report);
       });
     } catch (error) {
       runInAction("loading report error", () => {
         this.loadingInitial = false;
       });
-      console.log(error);
       toast.error("Problem loading report");
     }
   };
@@ -210,7 +200,6 @@ export default class ProblemStore {
       runInAction("submitting error", () => {
         this.loadingInitial = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
@@ -257,7 +246,6 @@ export default class ProblemStore {
         this.submitting = false;
         this.target = "";
       });
-      console.log(error);
     }
   };
 }

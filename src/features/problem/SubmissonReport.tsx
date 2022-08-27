@@ -1,55 +1,46 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
   Container,
   Divider,
   Grid,
+  GridColumn,
   GridRow,
   Header,
   Icon,
   Label,
   Segment,
 } from "semantic-ui-react";
-import LoadingComponent from "../../app/layout/LoadingComponent";
-import { RootStoreContext } from "../../app/stores/rootStore";
+import { progLanguageToSyntaxHighlighterLanguage, verdicts } from "../../app/common/util/commanData";
+import { ISubmission } from "../../app/models/courseProblemSet";
 
-export function progLangToString(lang: any) {
-  let langs = ["Cpp", "Java", "Python"];
-  return langs[lang];
-}
 
 interface DetailParams {
-  submissionId: string;
-  sourceCode: string;
+  submission: ISubmission;
 }
 
 const SubmissionReport: React.FC<DetailParams> = ({
-  submissionId,
-  sourceCode,
+  submission
 }) => {
-  const rootStore = useContext(RootStoreContext);
-  const { report, loadingInitial, LoadReport } = rootStore.problemStore;
-
-  useEffect(() => {
-    LoadReport(submissionId);
-  }, [submissionId, LoadReport]);
-  const WAReport = () => {
-    if (report?.WaReport != null) {
-      let input = report?.WaReport.Input.split("\r\n").map((str, i) => (
-        <p style={{ fontSize: "13px" }} key={"inp" + i}>
+  const FailedSubmissionReport = () => {
+    if (verdicts[submission.Verdict].summary == "ACC" || verdicts[submission.Verdict].summary == "IQ") return;
+    let input = submission?.WrongTestInput.split("\r\n").map((str, i) => (
+      <p className="subRep" key={"inp" + i}>
+        {str}
+      </p>
+    ));
+    let expout = submission.ExpectedOutput.split("\r\n").map(
+      (str, i) => (
+        <p className="subRep" key={"exp" + i}>
           {str}
         </p>
-      ));
-      let expout = report?.WaReport.ExpectedOutput.split("\r\n").map(
-        (str, i) => (
-          <p style={{ fontSize: "13px" }} key={"exp" + i}>
-            {str}
-          </p>
-        )
-      );
-      let actout = report?.WaReport.ActualOutput.split("\r\n").map((str, i) => (
-        <p style={{ fontSize: "13px" }} key={"act" + i}>
+      )
+    );
+    if (verdicts[submission.Verdict].summary == "WA") {
+      let actout = submission.ActualOutput.split("\r\n").map((str, i) => (
+        <p className="subRep" key={"act" + i}>
           {str}
         </p>
       ));
@@ -78,21 +69,66 @@ const SubmissionReport: React.FC<DetailParams> = ({
         </Segment>
       );
     }
+
+    else if (verdicts[submission.Verdict].summary == "CE") {
+      return (
+        <Segment>
+          <Divider horizontal>
+            <Header as="h4">
+              <Icon name="exclamation triangle" color="red" />
+              Compilation Error
+            </Header>
+          </Divider>
+          <div>
+            <Segment>
+              <h4>Compiler Error Message:</h4>
+              <p style={{ fontFamily: "monospace", whiteSpace: 'break-spaces' }}>{submission.CompilerErrorMessage}</p>
+            </Segment>
+          </div>
+        </Segment>
+      );
+    }
+    else if (verdicts[submission.Verdict].summary == "RE") {
+      return (
+        <Segment>
+          <Divider horizontal>
+            <Header as="h4">
+              <Icon name="exclamation triangle" color="red" />
+              Runtime Error
+            </Header>
+          </Divider>
+          <div>
+            <Segment>
+              <h4>Runtime Error Message:</h4>
+              <p style={{ fontFamily: "monospace", whiteSpace: 'break-spaces' }}>{submission.RuntimeErrorMessage}</p>
+            </Segment>
+            <Segment>
+              <h4>Input:</h4>
+              {input}
+            </Segment>
+            <Segment>
+              <h4>Expected Output:</h4>
+              {expout}
+            </Segment>
+          </div>
+        </Segment>
+      );
+    }
   };
-
-  if (loadingInitial || !report) {
-    return <LoadingComponent />;
-  }
-
   return (
     <Segment>
       <Header
         as="h2"
-        content={`Submission Report #${submissionId}`}
-        style={{ marginBottom: "0", color: "#2f4858" }}
+        content={`Submission Report #${submission.Id}`}
+        style={{ marginBottom: "1em", color: "#2f4858" }}
       />
-
       <Grid>
+        {verdicts[submission.Verdict].summary != "IQ" && <GridRow>
+          <GridColumn>
+            <h4 style={{ color: verdicts[submission.Verdict].summary == "ACC" ? "green" : "red" }}>
+              Tests Passed : {submission.TestsPassed + '/' + submission.TotalTests}</h4>
+          </GridColumn>
+        </GridRow>}
         <GridRow>
           <Container>
             <Segment>
@@ -103,18 +139,19 @@ const SubmissionReport: React.FC<DetailParams> = ({
                     Source Code
                   </Header>
                 </Divider>
-                <SyntaxHighlighter language={"python"}>
-                  {sourceCode}
+                <SyntaxHighlighter language={
+                  submission?.ProgrammingLanguage != null ? progLanguageToSyntaxHighlighterLanguage[submission.ProgrammingLanguage!] : "python"}>
+                  {submission.SourceCode}
                 </SyntaxHighlighter>
               </Segment>
-              {WAReport()}
+              {FailedSubmissionReport()}
             </Segment>
             <Segment textAlign="center">
               <Label style={{ fontSize: "12pt" }}>
                 <Icon name="lightbulb outline" color="yellow"></Icon>
                 <strong>
-                  To know more about the verdict you got, check the verdicts
-                  guide in the navbar!
+                  To know more about the verdict you got, check the
+                  <Link to={'/verdictsGuide'}> verdicts guide </Link>
                 </strong>
               </Label>
             </Segment>

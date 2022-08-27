@@ -37,7 +37,6 @@ export default class CourseProblemSetStore {
         this.course = course;
         this.loadingInitial = false;
       });
-      console.log(course);
       runInAction("load problemSets", () => {
         course.ProblemSets.forEach((problemSet) => {
           if (problemSet.DueDate != null) {
@@ -51,7 +50,6 @@ export default class CourseProblemSetStore {
       runInAction(() => {
         this.loadingInitial = false;
       });
-      console.log(error);
     }
   };
 
@@ -70,7 +68,6 @@ export default class CourseProblemSetStore {
       runInAction(() => {
         this.loadingInitial = false;
       });
-      console.log(error);
     }
   };
 
@@ -88,15 +85,12 @@ export default class CourseProblemSetStore {
             this.problemSetStatistics =problemSet;
           }
         });
-        console.log(this.problemSetStatistics?.UserStatistics);
-
         this.loadingInitial = false;
       });
     } catch (error) {
       runInAction(() => {
         this.loadingInitial = false;
       });
-      console.log(error);
     }
   };
 
@@ -106,7 +100,6 @@ export default class CourseProblemSetStore {
 
   didSolveProblem = (userEmail: string, problemId: string) => {
     let succ = false;
-    console.log("statsssssssss",this.problemSetStatistics, userEmail, problemId)
     this.problemSetStatistics?.UserStatistics.forEach((element) => {
       if (
         element.UserEmail == userEmail &&
@@ -185,7 +178,6 @@ export default class CourseProblemSetStore {
       runInAction("edit problem set error", () => {
         this.submitting = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
@@ -229,26 +221,6 @@ export default class CourseProblemSetStore {
     }
   };
 
-  // @action addUsersToCourse = async (userEmails: FormData) => {
-  //   this.submitting = true;
-  //   try {
-  //     await agent.Courses.addUsersToCourse(userEmails);
-  //     var newCrs = await agent.Courses.getCourseSimple(this.course?.Id!);
-  //     runInAction("add users to course", () => {
-  //       if (this.course) {
-  //         this.course.UsersEmails = newCrs.UsersEmails;
-  //       }
-  //       this.submitting = false;
-  //     });
-  //     return true;
-  //   } catch (error) {
-  //     runInAction("add users to course error", () => {
-  //       this.submitting = false;
-  //     });
-  //     return false;
-  //   }
-  // };
-
   @action updateCourse = async (course: ICourse) => {
     this.submitting = true;
     try {
@@ -277,7 +249,6 @@ export default class CourseProblemSetStore {
       runInAction("edit course error", () => {
         this.submitting = false;
       });
-      console.log(error);
       toast.error("Problem submitting data");
     }
   };
@@ -305,7 +276,6 @@ export default class CourseProblemSetStore {
         this.submitting = false;
         this.target = "";
       });
-      console.log(error);
       history.push("/course");
     }
   };
@@ -337,7 +307,6 @@ export default class CourseProblemSetStore {
         this.submitting = false;
         this.target = "";
       });
-      console.log(error);
       history.push(`/course/${courseId}/problemset`);
     }
   };

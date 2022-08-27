@@ -64,7 +64,6 @@ const SubmitForm = () => {
                   rows="20"
                   component={TextAreaInput}
                 ></Field>
-                {/* <Container textAlign="center"> */}
                 <Button
                   disabled={invalid || pristine}
                   floated="right"
@@ -72,7 +71,6 @@ const SubmitForm = () => {
                   type="submit"
                   content="Submit"
                 />
-                {/* </Container> */}
               </Form>
             </div>
           )}

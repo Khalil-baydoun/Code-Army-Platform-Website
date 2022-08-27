@@ -11,7 +11,7 @@ const Footer =() =>(
           <Grid.Column width={3}>
             <Header inverted as='h4' content='About' />
             <List link inverted>
-              <List.Item as={'a'} href={"mailto: abc@example.com"} >
+              <List.Item as={'a'} href={"mailto: baydounkhalil1@gmail.com"} >
               <Icon name="mail"></Icon>
                 Contact Us</List.Item>
               <List.Item as='a' href="https://github.com/Khalil-baydoun/Code-Army-Platform-Website">

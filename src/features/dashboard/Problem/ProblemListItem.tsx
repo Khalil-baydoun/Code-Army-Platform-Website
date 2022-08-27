@@ -24,7 +24,6 @@ const ProblemListItem: React.FC<IProps> = ({
   if (!summary) {
     return <div></div>;
   }
-  // style={{ color: "#2f4858" }}
   return (
     <Table.Row>
       <Table.Cell width="1">
